@@ -1,0 +1,316 @@
+// Version: 2.9.4
+
+.tns-outer {
+  padding: 0 !important; // remove padding: clientWidth = width + padding (0) = width
+  [hidden] {
+    display: none !important;
+  }
+  [aria-controls],
+  [data-action] {
+    cursor: pointer;
+  }
+  position: relative;
+  overflow: visible;
+}
+.tns-slider {
+  -webkit-transition: all 0s;
+  -moz-transition: all 0s;
+  transition: all 0s;
+  display: flex;
+  > .tns-item {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+
+  &.tns-vertical {
+    display: block;
+  }
+}
+
+.equal-height {
+  .tns-item {
+    min-height: 100%;
+
+    > div {
+      height: 100%;
+    }
+  }
+}
+
+.slider-overflow-visible {
+  .tns-ovh {
+    overflow: visible;
+  }
+}
+
+.tns-horizontal {
+  &.tns-subpixel {
+    white-space: nowrap;
+    > .tns-item {
+      display: inline-block;
+      vertical-align: top;
+      white-space: normal;
+    }
+  }
+  &.tns-no-subpixel {
+    &:after {
+      content: '';
+      display: table;
+      clear: both;
+    }
+    > .tns-item {
+      float: left;
+    }
+  }
+  &.tns-carousel {
+    &.tns-no-subpixel {
+      > .tns-item {
+        margin-right: -100%;
+      }
+    }
+  }
+}
+.tns-no-calc {
+  position: relative;
+  left: 0;
+}
+.tns-gallery {
+  position: relative;
+  left: 0;
+  min-height: 1px; // make sure slider container is visible
+  // overflow: hidden;
+  > .tns-item {
+    position: absolute;
+    left: -100%;
+    -webkit-transition: transform 0s, opacity 0s;
+    -moz-transition: transform 0s, opacity 0s;
+    transition: transform 0s, opacity 0s;
+  }
+  > .tns-slide-active {
+    position: relative;
+    left: auto !important;
+  }
+  > .tns-moving {
+    -webkit-transition: all 0.25s;
+    -moz-transition: all 0.25s;
+    transition: all 0.25s;
+  }
+}
+.tns-autowidth {
+  display: inline-block;
+}
+.tns-lazy-img {
+  -webkit-transition: opacity 0.6s;
+  -moz-transition: opacity 0.6s;
+  transition: opacity 0.6s;
+  opacity: 0.6;
+  &.tns-complete {
+    opacity: 1;
+  }
+}
+.tns-ah {
+  -webkit-transition: height 0s;
+  -moz-transition: height 0s;
+  transition: height 0s;
+}
+.tns-ovh {
+  overflow: hidden;
+}
+.testimonial-container {
+  .tns-ovh {
+    overflow: visible;
+  }
+}
+
+.tns-outer {
+  [data-action],
+  .tns-visually-hidden {
+    display: none;
+  }
+}
+.tns-visually-hidden {
+  position: absolute;
+  left: -10000em;
+}
+.tns-transparent {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.tns-fadeIn {
+  opacity: 1;
+  filter: alpha(opacity=100);
+  z-index: 0;
+}
+.tns-normal,
+.tns-fadeOut {
+  opacity: 0;
+  filter: alpha(opacity=0);
+  z-index: -1;
+}
+
+// *** Fix a viewport issue in initialization
+.tns-vpfix {
+  white-space: nowrap;
+  > div,
+  > li {
+    display: inline-block;
+  }
+}
+
+// *** Detecting browser capability ***
+$width: 310px;
+$height: 10px;
+$count: 70;
+$perpage: 3;
+
+.tns-t {
+  &-subp2 {
+    margin: 0 auto;
+    width: $width;
+    position: relative;
+    height: $height;
+    overflow: hidden;
+  }
+  &-ct {
+    width: calc(100% * $count / $perpage);
+    width: -webkit-calc(100% * #{$count} / #{$perpage});
+    width: -moz-calc(100% * #{$count} / #{$perpage});
+    width: calc(100% * #{$count} / #{$perpage});
+    position: absolute;
+    right: 0;
+    &:after {
+      content: '';
+      display: table;
+      clear: both;
+    }
+    > div {
+      width: calc(100% / $count);
+      width: -webkit-calc(100% / #{$count});
+      width: -moz-calc(100% / #{$count});
+      width: calc(100% / #{$count});
+      height: $height;
+      float: left;
+    }
+  }
+}
+
+.tns-controls {
+  display: inline-flex;
+  position: absolute;
+  top: -118px;
+  right: 0;
+  button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 48px;
+    height: 48px;
+    line-height: 0;
+    font-size: 0;
+    cursor: pointer;
+    padding: 0;
+    border: none;
+    outline: none;
+    z-index: 99;
+    border-radius: 50%;
+    border: 2px solid white;
+    margin-right: 8px;
+    &:focus {
+      outline: none;
+    }
+
+    &:hover {
+      background-color: #fff;
+
+      svg path {
+        @apply stroke-primary;
+      }
+    }
+    &:disabled {
+      opacity: 0.4;
+      pointer-events: none;
+    }
+  }
+
+  @media (max-width: 990px) {
+    top: -62px;
+  }
+}
+
+@media (max-width: 990px) {
+  .tns-arrows-mobile {
+    .tns-controls {
+      display: flex;
+      justify-content: center;
+
+      button {
+        left: 0;
+        right: 0;
+        position: relative;
+        margin: 0;
+        margin: 0 8px;
+      }
+    }
+  }
+}
+.top-controls {
+  .tns-controls {
+    position: absolute;
+    right: 0;
+    top: -62px;
+
+    @media (max-width: 767px) {
+      position: static;
+      margin: 0 auto;
+      display: flex;
+      justify-content: center;
+      margin: 25px 0 0;
+    }
+  }
+}
+
+.tns-nav {
+  text-align: center;
+  position: relative;
+  bottom: 0;
+  padding: 24px 0 0 0;
+
+  > [aria-controls] {
+    width: 8px;
+    height: 8px;
+    padding: 0;
+    margin: 0 4px;
+    border-radius: 50%;
+    background: rgba(#204386, 0.33);
+    border: 0;
+  }
+
+  > .tns-nav-active {
+    background: rgba(#204386, 1);
+  }
+}
+
+.blog-container .tns-controls {
+  position: absolute;
+  top: -60px;
+  right: -5px;
+  width: 100%;
+  justify-content: flex-end;
+  z-index: 0;
+
+  button {
+    &:first-child {
+      margin-right: 16px;
+    }
+  }
+}
+
+.tns-ovh {
+  overflow: visible !important;
+}
+
+// .course-benefits .tns-controls {
+//   display: none;
+// }
